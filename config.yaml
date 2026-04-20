@@ -1,0 +1,48 @@
+# Influencer Finder configuration
+# Customize keywords + filters per niche.
+
+niches:
+  k_beauty:
+    keywords:
+      - "한국 뷰티 리뷰"
+      - "k-beauty skincare"
+      - "korean makeup tutorial"
+    min_subscribers: 10000
+    max_subscribers: 500000
+    country: KR
+    language: ko
+
+  fitness:
+    keywords:
+      - "home workout"
+      - "홈트레이닝"
+    min_subscribers: 20000
+    language: ko
+
+discovery:
+  max_channels_per_keyword: 50
+  max_channels_per_run: 100
+
+crawl:
+  request_delay_min_seconds: 2
+  request_delay_max_seconds: 5
+  timeout_seconds: 20
+  max_retries: 3
+  user_agents:
+    - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36"
+    - "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+
+website_paths_to_try:
+  - ""
+  - "/contact"
+  - "/contact-us"
+  - "/about"
+  - "/about-us"
+  - "/press"
+  - "/collab"
+  - "/collaboration"
+  - "/partnerships"
+  - "/work-with-me"
+  - "/문의"
+  - "/kontakt"

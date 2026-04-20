@@ -1,0 +1,43 @@
+[project]
+name = "influencer-finder"
+version = "0.1.0"
+description = "Discover influencer contact emails from YouTube/Instagram/TikTok via public bios and link-in-bio pages. No hallucinated emails — only extracted strings with source URLs."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "google-api-python-client>=2.100",
+    "playwright>=1.44",
+    "httpx>=0.27",
+    "beautifulsoup4>=4.12",
+    "lxml>=5.0",
+    "dnspython>=2.6",
+    "email-validator>=2.1",
+    "pydantic>=2.7",
+    "typer>=0.12",
+    "tenacity>=8.3",
+    "sqlite-utils>=3.36",
+    "python-dotenv>=1.0",
+    "tldextract>=5.1",
+    "rich>=13.7",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+influencer = "influencer_finder.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/influencer_finder"]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
