@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS sources (
     type TEXT NOT NULL,
     fetched_at TIMESTAMP,
     success INTEGER,
+    detected_tech TEXT,
     UNIQUE(profile_id, url)
 );
 CREATE INDEX IF NOT EXISTS idx_sources_profile ON sources(profile_id);
@@ -69,6 +70,10 @@ def connect(db_path: str | Path = DEFAULT_DB_PATH) -> sqlite3.Connection:
 def init_db(db_path: str | Path = DEFAULT_DB_PATH) -> None:
     with connect(db_path) as conn:
         conn.executescript(SCHEMA)
+        try:
+            conn.execute("ALTER TABLE sources ADD COLUMN detected_tech TEXT")
+        except sqlite3.OperationalError:
+            pass
         conn.commit()
 
 
@@ -151,12 +156,21 @@ def insert_source(conn: sqlite3.Connection, source: Source) -> Optional[int]:
 
 
 def mark_source_fetched(
-    conn: sqlite3.Connection, source_id: int, success: bool
+    conn: sqlite3.Connection,
+    source_id: int,
+    success: bool,
+    detected_tech: Optional[str] = None,
 ) -> None:
-    conn.execute(
-        "UPDATE sources SET success = ?, fetched_at = CURRENT_TIMESTAMP WHERE id = ?",
-        (1 if success else 0, source_id),
-    )
+    if detected_tech:
+        conn.execute(
+            "UPDATE sources SET success=?, fetched_at=CURRENT_TIMESTAMP, detected_tech=? WHERE id=?",
+            (1 if success else 0, detected_tech, source_id),
+        )
+    else:
+        conn.execute(
+            "UPDATE sources SET success=?, fetched_at=CURRENT_TIMESTAMP WHERE id=?",
+            (1 if success else 0, source_id),
+        )
 
 
 def update_email_validation(

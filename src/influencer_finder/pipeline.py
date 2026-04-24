@@ -41,6 +41,7 @@ def discover_youtube(
     keyword: str,
     max_channels: int = 50,
     min_subscribers: Optional[int] = None,
+    max_subscribers: Optional[int] = None,
     region_code: Optional[str] = None,
     relevance_language: Optional[str] = None,
     db_path: Optional[str] = None,
@@ -60,7 +61,10 @@ def discover_youtube(
     inserted = 0
     with session(db_path or db_module.DEFAULT_DB_PATH) as conn:
         for ch in yt.fetch_channels(channel_ids):
-            if min_subscribers and (ch.subscriber_count or 0) < min_subscribers:
+            subs = ch.subscriber_count or 0
+            if min_subscribers and subs < min_subscribers:
+                continue
+            if max_subscribers and subs > max_subscribers:
                 continue
             profile = Profile(
                 platform="youtube",
@@ -133,7 +137,8 @@ def crawl_external_links(
 ) -> dict[str, int]:
     cfg = load_config(config_path)
     crawl_cfg = cfg.get("crawl", {})
-    website_paths = cfg.get("website_paths_to_try", [""])
+    priority_paths = cfg.get("website_paths_priority", cfg.get("website_paths_to_try", [""]))
+    fallback_paths = cfg.get("website_paths_fallback", [])
 
     stats = {"fetched": 0, "succeeded": 0, "emails_found": 0}
 
@@ -174,13 +179,17 @@ def crawl_external_links(
                 url = row["url"]
 
                 if _is_personal_domain(url):
-                    results = crawler.crawl_site_paths(url, website_paths)
+                    results = crawler.crawl_site_paths(url, priority_paths, fallback_paths)
                 else:
                     results = [crawler.crawl(url)]
 
                 with session(db_path or db_module.DEFAULT_DB_PATH) as conn:
                     primary_ok = any(r.success for r in results)
-                    mark_source_fetched(conn, sid, primary_ok)
+                    tech_union: set[str] = set()
+                    for r in results:
+                        tech_union.update(r.detected_tech or [])
+                    tech_str = ",".join(sorted(tech_union)) if tech_union else None
+                    mark_source_fetched(conn, sid, primary_ok, detected_tech=tech_str)
                     stats["fetched"] += 1
                     if primary_ok:
                         stats["succeeded"] += 1

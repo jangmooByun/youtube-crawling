@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from datetime import date
 from pathlib import Path
 from typing import Optional
 
@@ -12,6 +13,16 @@ from . import db as db_module
 from . import pipeline
 from .db import connect, init_db
 from .export import export_csv
+
+
+def _default_out_path(out: Optional[Path], filename: str = "leads.csv") -> Path:
+    """Fold bare filenames under data/<YYYY-MM-DD>/. Explicit paths pass through."""
+    today = date.today().isoformat()
+    if out is None:
+        return Path("data") / today / filename
+    if out.parent == Path("."):
+        return Path("data") / today / out.name
+    return out
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s %(name)s: %(message)s")
 
@@ -36,6 +47,7 @@ def discover_youtube(
     keyword: str = typer.Option(..., "--keyword", "-k"),
     max: int = typer.Option(50, "--max", help="Max channels to fetch"),
     min_subs: Optional[int] = typer.Option(None, "--min-subs"),
+    max_subs: Optional[int] = typer.Option(None, "--max-subs"),
     region: Optional[str] = typer.Option(None, "--region", help="ISO country code"),
     language: Optional[str] = typer.Option(None, "--language"),
     db_path: str = typer.Option(db_module.DEFAULT_DB_PATH, "--db"),
@@ -45,6 +57,7 @@ def discover_youtube(
         keyword=keyword,
         max_channels=max,
         min_subscribers=min_subs,
+        max_subscribers=max_subs,
         region_code=region,
         relevance_language=language,
         db_path=db_path,
@@ -75,7 +88,11 @@ def validate(db_path: str = typer.Option(db_module.DEFAULT_DB_PATH, "--db")):
 
 @app.command("export")
 def export(
-    out: Path = typer.Option(Path("leads.csv"), "--out"),
+    out: Optional[Path] = typer.Option(
+        None,
+        "--out",
+        help="Output CSV path. Bare filenames are folded under data/<today>/.",
+    ),
     filter: Optional[str] = typer.Option(
         None,
         "--filter",
@@ -84,8 +101,9 @@ def export(
     db_path: str = typer.Option(db_module.DEFAULT_DB_PATH, "--db"),
 ):
     """Export verified emails to CSV."""
-    n = export_csv(output_path=out, db_path=db_path, where=filter)
-    console.print(f"[green]Exported {n} rows → {out}[/]")
+    resolved = _default_out_path(out)
+    n = export_csv(output_path=resolved, db_path=db_path, where=filter)
+    console.print(f"[green]Exported {n} rows → {resolved}[/]")
 
 
 @app.command("stats")
@@ -125,10 +143,15 @@ def run_all(
     keyword: str = typer.Option(..., "--keyword", "-k"),
     max: int = typer.Option(50, "--max"),
     min_subs: Optional[int] = typer.Option(None, "--min-subs"),
+    max_subs: Optional[int] = typer.Option(None, "--max-subs"),
     region: Optional[str] = typer.Option(None, "--region"),
     language: Optional[str] = typer.Option(None, "--language"),
     config: str = typer.Option("config.yaml", "--config"),
-    out: Path = typer.Option(Path("leads.csv"), "--out"),
+    out: Optional[Path] = typer.Option(
+        None,
+        "--out",
+        help="Output CSV path. Bare filenames are folded under data/<today>/.",
+    ),
     db_path: str = typer.Option(db_module.DEFAULT_DB_PATH, "--db"),
 ):
     """Run the full pipeline end-to-end for a single keyword."""
@@ -136,6 +159,7 @@ def run_all(
         keyword=keyword,
         max_channels=max,
         min_subscribers=min_subs,
+        max_subscribers=max_subs,
         region_code=region,
         relevance_language=language,
         db_path=db_path,
@@ -143,8 +167,9 @@ def run_all(
     pipeline.extract_from_bios(db_path=db_path)
     pipeline.crawl_external_links(config_path=config, db_path=db_path)
     pipeline.validate_emails(db_path=db_path)
-    n = export_csv(output_path=out, db_path=db_path, where="has_mx=1")
-    console.print(f"[green]Done. {n} leads → {out}[/]")
+    resolved = _default_out_path(out)
+    n = export_csv(output_path=resolved, db_path=db_path, where="has_mx=1")
+    console.print(f"[green]Done. {n} leads → {resolved}[/]")
 
 
 if __name__ == "__main__":

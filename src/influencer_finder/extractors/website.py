@@ -20,6 +20,7 @@ from playwright.sync_api import TimeoutError as PWTimeout
 from playwright.sync_api import sync_playwright
 
 from .email_regex import ExtractedEmail, extract_emails, extract_mailto_hrefs
+from .tech_stack import detect_tech_stack
 
 logger = logging.getLogger(__name__)
 
@@ -29,8 +30,13 @@ class CrawlResult:
     url: str
     success: bool
     emails: list[ExtractedEmail]
+    detected_tech: list[str] = None  # type: ignore[assignment]
     status: Optional[int] = None
     error: Optional[str] = None
+
+    def __post_init__(self) -> None:
+        if self.detected_tech is None:
+            self.detected_tech = []
 
 
 class WebsiteCrawler:
@@ -84,19 +90,33 @@ class WebsiteCrawler:
             return CrawlResult(url=url, success=False, emails=[], error=str(e))
 
         emails = _extract_from_html(html, source_url=url)
-        return CrawlResult(url=url, success=True, emails=emails, status=status)
+        tech = detect_tech_stack(html, url)
+        return CrawlResult(
+            url=url, success=True, emails=emails, detected_tech=tech, status=status
+        )
 
-    def crawl_site_paths(self, base_url: str, paths: list[str]) -> list[CrawlResult]:
+    def crawl_site_paths(
+        self,
+        base_url: str,
+        priority_paths: list[str],
+        fallback_paths: list[str] | None = None,
+    ) -> list[CrawlResult]:
         results: list[CrawlResult] = []
         base = _origin(base_url)
         if not base:
             return results
-        for path in paths:
+        for path in priority_paths:
+            candidate = urljoin(base + "/", path.lstrip("/"))
+            results.append(self.crawl(candidate))
+        have_email = any(r.emails for r in results)
+        for path in fallback_paths or []:
+            if have_email:
+                break
             candidate = urljoin(base + "/", path.lstrip("/"))
             result = self.crawl(candidate)
             results.append(result)
             if result.emails:
-                break
+                have_email = True
         return results
 
     def _robots_allows(self, url: str) -> bool:

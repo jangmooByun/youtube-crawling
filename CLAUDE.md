@@ -14,7 +14,9 @@ uv run playwright install chromium
 
 # Tests
 uv run pytest                                  # all tests
-uv run pytest tests/test_email_regex.py -v     # single file
+uv run pytest tests/test_email_regex.py -v     # email-extraction invariant
+uv run pytest tests/test_tech_stack.py -v      # platform-detection regexes
+uv run pytest tests/test_website_paths.py -v   # crawler path-traversal
 uv run pytest -k "obfuscation"                 # by name pattern
 
 # Full pipeline against live DB (requires YOUTUBE_API_KEY in .env)
@@ -25,6 +27,9 @@ uv run influencer crawl-links
 uv run influencer validate
 uv run influencer export --filter "has_mx=1 AND is_role_based=0" --out leads.csv
 uv run influencer stats                        # progress table
+
+# One-shot end-to-end (chains all stages; exports with has_mx=1 by default)
+uv run influencer run-all --keyword "..." --max 50 --min-subs 10000 --out leads.csv
 ```
 
 The DB (`influencer.db`) is cumulative — repeated `discover` runs with different keywords upsert by `url`.
@@ -47,17 +52,22 @@ The CLI commands are thin wrappers around `pipeline.py` functions. Each pipeline
 discover  →  profiles table (with bio)
 extract   →  emails table (from bio regex) + sources table (external URLs)
 crawl-links → emails table (from crawled link-in-bio + personal sites)
+            + sources.detected_tech (platform fingerprints on each page)
 validate  →  fills syntax_valid / has_mx / is_role_based on existing emails
 export    →  CSV join of profiles × emails
 ```
 
-Key idempotency: `profiles.url` is UNIQUE, `emails(profile_id, email)` is UNIQUE, `sources(profile_id, url)` is UNIQUE. Everything uses `INSERT OR IGNORE` / `ON CONFLICT DO UPDATE`.
+Key idempotency: `profiles.url` is UNIQUE, `emails(profile_id, email)` is UNIQUE, `sources(profile_id, url)` is UNIQUE. Everything uses `INSERT OR IGNORE` / `ON CONFLICT DO UPDATE`. The `sources` row also carries `detected_tech` (written by the crawler, see below) alongside `url`/`type`/`success`/`fetched_at`.
+
+### Tech-stack enrichment (runs inside `crawl-links`)
+
+Each successfully fetched page is passed through `extractors/tech_stack.py::detect_tech_stack(html, url) -> list[str]` (regex-only, no LLM — ~40 platforms: Teachable, Gumroad, Calendly, Shopify, WordPress, …). The result is joined with commas and stored in `sources.detected_tech`. This is enrichment metadata for downstream outreach personalization — `export` does **not** filter on it, and the "no hallucinated emails" rule extends here: only strings literally present in the HTML/URL are recorded.
 
 ## YouTube-as-anchor design
 
 Only YouTube has a free official API. Instagram/TikTok discovery is not performed directly — instead, YouTube channel descriptions are mined for `instagram.com/<h>` / `tiktok.com/@<h>` / `linktr.ee/<s>` / personal-domain URLs. Those URLs get stored in `sources` with `type='external_link'` and the crawler (Playwright, in `extractors/website.py`) fetches them.
 
-For personal domains the crawler tries root + paths from `config.yaml:website_paths_to_try` (`/contact`, `/about`, `/press`, `/문의`, etc.) and stops at the first page that yields emails.
+For personal domains the crawler tries root + paths from `config.yaml:website_paths_priority` first (`/contact`, `/press`, `/work-with-me`, …), then falls back to `config.yaml:website_paths_fallback` (`/about`, `/collab`, `/partnerships`, `/문의`, …). It stops at the first page that yields emails. The priority/fallback split exists so contact-intent paths get crawled before generic about pages — keep that ordering when editing the lists.
 
 Adding a new platform means: (1) a new `discovery/<platform>.py` with a class that yields profile metadata, (2) a pipeline function that inserts profiles with `platform='<name>'`, (3) regex additions in `extractors/bio.py` if the URL pattern is new. The rest of the pipeline is platform-agnostic.
 
@@ -80,3 +90,7 @@ SMTP connect-level verification is intentionally NOT implemented — it gets the
 `extractors/website.py:WebsiteCrawler` respects `robots.txt`, rotates User-Agents from `config.yaml`, and sleeps a random `delay_range` between requests. These are not optional polish — they are what keeps the tool out of ToS/legal trouble. If you need faster throughput, add concurrency via multiple `WebsiteCrawler` instances on separate hosts, not by shortening delays.
 
 Instagram/TikTok direct scraping (`discovery/instagram.py`, `discovery/tiktok.py`) is intentionally out of the default path. The main email source is Phase 4 (link-in-bio crawl), which stays on public non-walled pages.
+
+## `scripts/` is out of the pipeline
+
+`scripts/` holds ad-hoc post-pipeline personalization tools (e.g. `enrich_all_csvs.py`, `personalize_all.py`, `category_angles.py`) that read exported CSVs in `data/` and write `*_enriched.csv` siblings with outreach-angle columns. They are **not** CLI subcommands, are **not** re-entrant against the DB, and should not be wired into the main pipeline. Leave them as one-off tools — if a step there ever needs to become routine, promote it into `pipeline.py` rather than making the CLI shell out to a script.
