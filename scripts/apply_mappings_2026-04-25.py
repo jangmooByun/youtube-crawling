@@ -57,9 +57,10 @@ def main() -> None:
     csv.field_size_limit(sys.maxsize)
     for cat in CATEGORIES:
         mapping = load(SCRIPTS / f"{cat}_mapping_2026-04-25.py")
-        more = SCRIPTS / f"{cat}_mapping_2026-04-25_more.py"
-        if more.exists():
-            mapping = {**mapping, **load(more)}
+        for extra in ("_more", "_v3"):
+            extra_path = SCRIPTS / f"{cat}_mapping_2026-04-25{extra}.py"
+            if extra_path.exists():
+                mapping = {**mapping, **load(extra_path)}
         for suffix in ["", "_enriched"]:
             p = DATED / f"{cat}{suffix}.csv"
             updated, total = apply(p, mapping)
