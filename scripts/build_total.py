@@ -66,6 +66,8 @@ SOURCES_19COL = [
     DATA / "2026-04-28" / "fitness_enriched.csv",
 ]
 SOURCE_LEGACY = DATA / "_legacy_enriched.csv"
+SOURCE_MINDFUL = DATA / "_mindful_enriched.csv"
+SOURCE_MEDITATION_0428 = DATA / "2026-04-28" / "meditation_enriched.csv"
 
 
 def _load_module(path: Path):
@@ -113,74 +115,28 @@ def main() -> None:
 
     cat_split = _load_module(SCRIPTS / "category_split_mapping.py").MAPPING
     legacy_map = _load_module(SCRIPTS / "legacy_mapping.py").MAPPING
+    mindful_path_mod = SCRIPTS / "mindful_mapping.py"
+    mindful_map = _load_module(mindful_path_mod).MAPPING if mindful_path_mod.exists() else {}
+    meditation_0428_mod = SCRIPTS / "meditation_2026-04-28.py"
+    meditation_0428_map = _load_module(meditation_0428_mod).MAPPING if meditation_0428_mod.exists() else {}
 
     buckets: dict[str, dict[tuple[str, str], dict]] = {c: {} for c in CATEGORIES}
-    drops = 0
-    skipped_jpkr = 0
+    counters = {"drops": 0, "jpkr": 0}
     missing: list[tuple[str, str]] = []
 
-    # 1) sources #1~#6 — apply category_split_mapping
-    for path in SOURCES_19COL:
-        for r in _read(path):
-            email = (r.get("email") or "").strip()
-            if not email:
-                continue
-            cat = cat_split.get(email)
-            if cat is None:
-                missing.append((path.name, email))
-                continue
-            if cat == "drop":
-                drops += 1
-                continue
-            if cat not in CATEGORIES:
-                raise RuntimeError(f"Unknown category {cat!r} for {email}")
-            country = (r.get("country") or "").upper()
-            if country in {"JP", "KR"}:
-                skipped_jpkr += 1
-                continue
-            row = _norm(r)
-            k = _key(row)
-            existing = buckets[cat].get(k)
-            if existing is None or _row_richness(row) > _row_richness(existing):
-                buckets[cat][k] = row
+    def insert_simple(row: dict, cat: str) -> None:
+        k = _key(row)
+        existing = buckets[cat].get(k)
+        if existing is None or _row_richness(row) > _row_richness(existing):
+            buckets[cat][k] = row
 
-    # 2) source #7+#8 — apply legacy_mapping (which contains category + extra fields)
-    for r in _read(SOURCE_LEGACY):
-        email = (r.get("email") or "").strip()
-        if not email:
-            continue
-        m = legacy_map.get(email)
-        if m is None:
-            missing.append((SOURCE_LEGACY.name, email))
-            continue
-        cat = m["category"]
-        if cat == "drop":
-            drops += 1
-            continue
-        if cat not in CATEGORIES:
-            raise RuntimeError(f"Unknown category {cat!r} for {email}")
-        country = (r.get("country") or "").upper()
-        if country in {"JP", "KR"}:
-            skipped_jpkr += 1
-            continue
-        row = _norm(r)
-        # Fill from legacy_mapping when fields are empty
-        for key in ("niche", "segment_original", "industry", "angle_to_take"):
-            if not row.get(key):
-                row[key] = m.get(key, "")
-            elif m.get(key) and key == "angle_to_take" and not row.get(key):
-                row[key] = m[key]
-        # Always overwrite with legacy_mapping when its value is non-empty AND
-        # the row's value is empty — this handles the 0422_fitness rows that
-        # have no niche/seg/industry yet.
+    def insert_with_mapping(row: dict, cat: str, m: dict) -> None:
         for key in ("niche", "segment_original", "industry", "angle_to_take"):
             if not (row.get(key) or "").strip() and m.get(key):
                 row[key] = m[key]
         k = _key(row)
-        # Cross-source dedup: if this row's (email, profile_url) already exists
-        # in another bucket from sources #1~#6, keep the richer one but keep it
-        # in the SAME category as the original (avoid moving e.g. kiransagar
-        # between fitness/nutrition).
+        # Cross-source dedup: keep the original category if it already exists
+        # in another bucket from sources #1~#6 (don't move e.g. kiransagar).
         moved_from = None
         for other_cat in CATEGORIES:
             if other_cat == cat:
@@ -191,22 +147,66 @@ def main() -> None:
         if moved_from is not None:
             existing = buckets[moved_from][k]
             if _row_richness(row) > _row_richness(existing):
-                # Refresh the existing entry's enrichment fields with legacy
-                # description/website (richer) but keep its category.
                 merged = existing.copy()
                 if row.get("description"):
                     merged["description"] = row["description"]
                 if row.get("website"):
                     merged["website"] = row["website"]
-                # Niche/seg/industry/angle: prefer non-empty
                 for key in ("niche", "segment_original", "industry", "angle_to_take"):
                     if not (merged.get(key) or "").strip() and row.get(key):
                         merged[key] = row[key]
                 buckets[moved_from][k] = merged
+            return
+        insert_simple(row, cat)
+
+    # 1) sources #1~#6 — apply category_split_mapping (simple email→category)
+    for path in SOURCES_19COL:
+        for r in _read(path):
+            email = (r.get("email") or "").strip()
+            if not email:
+                continue
+            cat = cat_split.get(email)
+            if cat is None:
+                missing.append((path.name, email))
+                continue
+            if cat == "drop":
+                counters["drops"] += 1
+                continue
+            if cat not in CATEGORIES:
+                raise RuntimeError(f"Unknown category {cat!r} for {email}")
+            country = (r.get("country") or "").upper()
+            if country in {"JP", "KR"}:
+                counters["jpkr"] += 1
+                continue
+            insert_simple(_norm(r), cat)
+
+    # 2) legacy / mindful / meditation-04-28 — full-dict mapping (category + niche/seg/industry/angle)
+    for src_path, mapping in [
+        (SOURCE_LEGACY, legacy_map),
+        (SOURCE_MINDFUL, mindful_map),
+        (SOURCE_MEDITATION_0428, meditation_0428_map),
+    ]:
+        if not src_path.exists() or not mapping:
             continue
-        existing = buckets[cat].get(k)
-        if existing is None or _row_richness(row) > _row_richness(existing):
-            buckets[cat][k] = row
+        for r in _read(src_path):
+            email = (r.get("email") or "").strip()
+            if not email:
+                continue
+            m = mapping.get(email)
+            if m is None:
+                missing.append((src_path.name, email))
+                continue
+            cat = m["category"]
+            if cat == "drop":
+                counters["drops"] += 1
+                continue
+            if cat not in CATEGORIES:
+                raise RuntimeError(f"Unknown category {cat!r} for {email}")
+            country = (r.get("country") or "").upper()
+            if country in {"JP", "KR"}:
+                counters["jpkr"] += 1
+                continue
+            insert_with_mapping(_norm(r), cat, m)
 
     if missing:
         print("MISSING mappings:", file=sys.stderr)
@@ -227,7 +227,7 @@ def main() -> None:
         print(f"  {path.name:20s}: {len(rows):4d} rows")
 
     total = sum(len(buckets[c]) for c in CATEGORIES)
-    print(f"\nwritten total: {total} rows | drop: {drops} | skipped JP/KR: {skipped_jpkr}")
+    print(f"\nwritten total: {total} rows | drop: {counters['drops']} | skipped JP/KR: {counters['jpkr']}")
 
 
 if __name__ == "__main__":
