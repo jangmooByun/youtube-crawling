@@ -25,17 +25,41 @@
 
 D (sound healing / functional medicine / breathwork retreat) 는 이번 사이클 제외 — 다음 달 재고.
 
-## Quota 예산 (~8,850 / 10,000 일일 한도, 버퍼 ~13%)
+## Quota 예산 (~9,350 / 10,000 일일 한도, 버퍼 ~6.5%)
 
-| 카테고리 | keyword × page | search.list | channels.list | 소계 |
-|---|---|---|---|---|
-| meditation | 14 × 3 | 4,200 | ~600 | **4,800** |
-| mindset (breathwork/coach) | 6 × 2 | 1,200 | ~150 | **1,350** |
-| fitness (sub-niche) | 6 × 2 | 1,200 | ~150 | **1,350** |
-| nutrition (sub-niche) | 6 × 2 | 1,200 | ~150 | **1,350** |
-| **합계** | | | | **~8,850** |
+| 카테고리 | keyword × page | search.list | channels.list | freshness 필터 | 소계 |
+|---|---|---|---|---|---|
+| meditation | 14 × 3 | 4,200 | ~600 | ~250 | **5,050** |
+| mindset (breathwork/coach) | 6 × 2 | 1,200 | ~150 | ~80 | **1,430** |
+| fitness (sub-niche) | 6 × 2 | 1,200 | ~150 | ~90 | **1,440** |
+| nutrition (sub-niche) | 6 × 2 | 1,200 | ~150 | ~80 | **1,430** |
+| **합계** | | | | | **~9,350** |
 
-quotaExceeded 시 v3 의 cleanly stop 패턴 그대로.
+타이트하지만 한도 안. quotaExceeded 시 v3 의 cleanly stop 패턴 그대로.
+
+## Freshness 필터 (6 개월 무활동 채널 제외)
+
+내일 sweep 의 추가 요구사항. 마지막 업로드가 6 개월 (180 일) 보다 오래된 채널은 surface 안 함.
+
+**임계값**: today − 180d = **2025-10-28** (today 2026-04-28 기준).
+
+### 구현
+- `channels.list` 의 `part` 에 `contentDetails` 추가 (quota 영향 0 — 호출당 1 unit 그대로)
+- 각 채널에서 `contentDetails.relatedPlaylists.uploads` (uploads 플레이리스트 ID) 추출
+- MIN_SUBS / 국가 필터 통과한 채널에 대해서만:
+  - `playlistItems.list(playlistId=uploads_id, part="snippet", maxResults=1)` 호출 (채널당 +1 quota)
+  - `items[0].snippet.publishedAt` 가 cutoff 보다 새것이면 통과, 아니면 drop
+  - items 가 비어있으면 (퍼블릭 영상 없음) → drop
+
+### 컬럼 저장 안 함 (필터 전용)
+`last_upload_at` 은 19-col schema 에 추가 안 함 — 필터링에만 사용하고 버림. 차후 재취득 가능.
+
+### 적용 범위
+**내일 sweep (`data/2026-04-29/`) 만 적용**. 기존 334 row (`data/total/`) 는 freshness 백필 안 함 — 이번 사이클 안전선.
+
+### 예상 효과
+- 일반적으로 3~5% 채널이 6 개월 무활동으로 drop (sweep 마다 다름)
+- 추가 quota 비용: ~500 (전체 4 카테고리 합)
 
 ## 키워드 정의
 
@@ -125,6 +149,10 @@ quotaExceeded 시 v3 의 cleanly stop 패턴 그대로.
   PAGES_PER_KEYWORD = {"meditation": 3, "mindset": 2, "fitness": 2, "nutrition": 2}
   ```
 - 설정 동일: `MIN_SUBS=1000`, `EXCLUDE_COUNTRIES={KR,JP}`
+- **신규**: `FRESHNESS_DAYS = 180` (6 개월 freshness 임계값)
+- **신규**: `channels.list` 의 `part` 에 `contentDetails` 추가
+- **신규**: `is_recently_active(channel, threshold_date)` 헬퍼 — uploads 플레이리스트의 첫 video publishedAt 체크 (`playlistItems.list(playlistId=uploads_id, part="snippet", maxResults=1)`)
+- **신규**: discover 로그에 `dropped (stale, last upload <YYYY-MM-DD)` 카운터 출력
 - robots.txt + UA 로테이션 + delay_range (CLAUDE.md load-bearing)
 
 ### 2. discover 실행
@@ -263,7 +291,7 @@ uv run pytest -q
 
 ## 검증 체크리스트
 
-1. `data/2026-04-29/{4 카테고리}_enriched.csv` 모두 생성 + 19-col schema
+1. `data/2026-04-29/{4 카테고리}_enriched.csv` 모두 생성 + 19-col schema (last_upload_at 컬럼 없음 확인 — 필터 전용)
 2. JP/KR row 0
 3. cross-date 채널 중복 0 (04-24 ~ 04-28 와 비교)
 4. country 분포 합리적 (US/IN/GB/CA/AU 위주)
@@ -271,7 +299,8 @@ uv run pytest -q
 6. niche/angle_to_take 100% 채워짐 (drop 제외)
 7. core invariant: 모든 email 의 raw_context literal 매치
 8. `data/total/` 4 CSV 모두 row 증가, 기존 row 보존 (regression 없음)
-9. `uv run pytest -q` 25 통과
+9. **freshness 필터 동작 확인**: discover 로그에 `dropped (stale, last upload <2025-10-28)` 카운터 출력. 통상 surface 채널의 3~5% drop
+10. `uv run pytest -q` 25 통과
 
 ## 예상 최종 상태 (내일 sweep 후)
 
