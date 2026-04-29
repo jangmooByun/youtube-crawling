@@ -65,21 +65,21 @@ MAPPING: dict[str, dict[str, str]] = {
 
     # ---- yoga / Yoga Nidra → mindset (per user rule: yoga goes to mindset) ----
     "hello@rosalieesilva.com": {
-        "category": "mindset",
+        "category": "yoga",
         "niche": "GB yoga teacher specializing in Yoga Nidra / NSDR + astral projection (RosalieYoga / Rosalie e Silva)",
         "segment_original": "GB Yoga Nidra + NSDR Teacher",
         "industry": "Yoga Teacher (online, Yoga Nidra niche)",
         "angle_to_take": "GB Yoga Nidra + NSDR teacher exploring expanded states. Frame a branded Rosalie app with bedtime-mode Yoga Nidra player + length filter (10/20/40 min) + journal prompt for inner-guidance work — replaces YouTube-only delivery with a paid evening-ritual surface. Cost saving on splintered Patreon + email funnel.",
     },
     "wellness@kristynroseyoga.ca": {
-        "category": "mindset",
+        "category": "yoga",
         "niche": "CA Yoga Nidra teacher for nervous-system healing + sleep + mindfulness (Kristyn Rose, wellness inbox)",
         "segment_original": "CA Yoga Nidra Teacher (NS regulation)",
         "industry": "Yoga Nidra (online)",
         "angle_to_take": "CA Yoga Nidra teacher framing practice around nervous-system regulation, sleep, and emotional balance. Frame a branded Kristyn-Rose app with nervous-system-state quiz + matched Yoga-Nidra audio + member-streak surface — turns her sleep/healing positioning into a daily-ritual revenue line.",
     },
     "kristynroseyoga@gmail.com": {
-        "category": "mindset",
+        "category": "drop",
         "niche": "CA Yoga Nidra teacher (Kristyn Rose, gmail inbox)",
         "segment_original": "CA Yoga Nidra Teacher (NS regulation)",
         "industry": "Yoga Nidra (online)",
@@ -88,7 +88,7 @@ MAPPING: dict[str, dict[str, str]] = {
 
     # ---- pure meditation → meditation ----
     "info@jackkornfield.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Western mindfulness icon — Buddhist monk training (Thailand/India/Burma) + clinical psych PhD + co-founder Insight Meditation Society + Spirit Rock Meditation Center (Jack Kornfield)",
         "segment_original": "US Buddhist Mindfulness Teacher + Author + Founder",
         "industry": "Meditation Teacher (Buddhist / clinical-mindfulness)",
@@ -97,70 +97,70 @@ MAPPING: dict[str, dict[str, str]] = {
 
     # Insight Meditation Center — same channel, 10 different inboxes; all meditation.
     "hborison@sbcglobal.net": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "US Insight Meditation Center (IMC) — community Vipassana / mindfulness Buddhist center (Gil Fronsdal + Andrea Fella) — personal admin email surfaced",
         "segment_original": "US Buddhist Insight-Meditation Center (admin)",
         "industry": "Meditation Center (Buddhist / Vipassana, B2C community)",
         "angle_to_take": "IMC admin email surfaced. Pitch a branded IMC sangha app: dharma talks library + retreat schedule + sitting-group registration + dāna (donation) flow — replaces fragmented mailman/Wordpress sangha tooling with a single member-tier surface.",
     },
     "earthcare.dharma@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Earthcare Dharma program (eco-dharma / Buddhist environmental practice group)",
         "segment_original": "US IMC Earthcare program inbox",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Earthcare Dharma program inbox. Same branded IMC app pitch but with a niche tag for eco-dharma practitioners — separate program track within the unified app.",
     },
     "imc.volunteerdirector@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Volunteer Director inbox — Buddhist community operations",
         "segment_original": "US IMC Volunteer Director (operations)",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Volunteer Director — operations contact. Pitch the branded IMC app with volunteer-shift sign-up + sangha announcements built-in — cost saving over current scattered scheduling tools.",
     },
     "asianimc2020@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Asian-heritage practitioner program (asianimc2020) — affinity sangha within IMC",
         "segment_original": "US IMC Asian-heritage sangha",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Asian-heritage affinity sangha. Pitch a branded IMC app with affinity-sangha sub-spaces (queer / Asian-heritage / family) gated by member tier — reflects how IMC actually runs sub-communities today.",
     },
     "imc.familyprogram@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Family Program — Buddhist meditation programming for families/children",
         "segment_original": "US IMC Family Program",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Family Program inbox. Branded IMC app with kids/teens-tier content + family-event RSVP — extends sangha membership down a generation.",
     },
     "eightfoldpath@insightmeditationcenter.org": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Eightfold Path program inbox",
         "segment_original": "US IMC Eightfold Path program",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Eightfold Path teaching cohort inbox. Branded IMC app with course-module structure for the Eightfold Path syllabus — replaces email + zoom-only delivery.",
     },
     "imcsg22@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC sub-group inbox (imcsg22) — likely a 2022 study/practice group",
         "segment_original": "US IMC study/practice sub-group",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC sub-group inbox. Same branded IMC app with sub-group cohort tier (closed-group + scheduled meeting calendar).",
     },
     "melodybaumgartner@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC named volunteer/staff (Melody Baumgartner) — internal champion contact",
         "segment_original": "US IMC named volunteer (champion)",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "Named IMC contact. Frame as warm internal-champion conversation about the branded IMC app — cost saving over Mailchimp + scattered spreadsheets.",
     },
     "imcqueersangha@gmail.com": {
-        "category": "meditation",
+        "category": "drop",
         "niche": "IMC Queer Sangha — LGBTQ+ affinity meditation community",
         "segment_original": "US IMC Queer Sangha",
         "industry": "Meditation Center (Buddhist)",
         "angle_to_take": "IMC Queer Sangha inbox. Same affinity-sangha sub-space pitch — LGBTQ+ affinity community as a member-tier within the unified IMC app.",
     },
     "contact@insightmeditationcenter.org": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IMC main contact — community Vipassana / mindfulness Buddhist center (Gil Fronsdal + Andrea Fella)",
         "segment_original": "US Buddhist Insight-Meditation Center (main inbox)",
         "industry": "Meditation Center (Buddhist / Vipassana)",
@@ -168,7 +168,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "meditationwithsk@gmail.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IN Osho-philosophy meditation channel with guided meditation techniques + inner-peace teachings (Meditation With SK)",
         "segment_original": "IN Osho-Tradition Meditation Teacher",
         "industry": "Meditation Teacher (Osho / philosophy)",
@@ -176,7 +176,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "wednesdaynightconversations@gmail.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US music-educator + 19yr mindfulness-meditation practitioner combining teaching with mindfulness practice (Wednesday Night Meditations)",
         "segment_original": "US Mindfulness Meditation Educator",
         "industry": "Meditation Teacher (mindfulness, educator)",

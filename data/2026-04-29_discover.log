@@ -1,0 +1,186 @@
+crawl http://meditation.sirimangalo.org failed: Page.goto: net::ERR_CONNECTION_REFUSED at http://meditation.sirimangalo.org/
+Call log:
+  - navigating to "http://meditation.sirimangalo.org/", waiting until "domcontentloaded"
+
+crawl http://www.sirimangalo.org failed: Page.goto: net::ERR_CONNECTION_REFUSED at http://www.sirimangalo.org/
+Call log:
+  - navigating to "http://www.sirimangalo.org/", waiting until "domcontentloaded"
+
+crawl https://www.intheflowofmagic.com failed: Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://www.intheflowofmagic.com/
+Call log:
+  - navigating to "https://www.intheflowofmagic.com/", waiting until "domcontentloaded"
+
+crawl https://donate.jamyang.co.uk/ failed: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://donate.jamyang.co.uk/
+Call log:
+  - navigating to "https://donate.jamyang.co.uk/", waiting until "domcontentloaded"
+
+crawl https://www.3xom.com failed: Page.goto: net::ERR_SSL_VERSION_OR_CIPHER_MISMATCH at https://www.3xom.com/
+Call log:
+  - navigating to "https://www.3xom.com/", waiting until "domcontentloaded"
+
+crawl https://fiitasamamabear.com failed: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://fiitasamamabear.com/
+Call log:
+  - navigating to "https://fiitasamamabear.com/", waiting until "domcontentloaded"
+
+crawl https://www.coachbill1club.org/ failed: Page.goto: net::ERR_NAME_NOT_RESOLVED at https://www.coachbill1club.org/
+Call log:
+  - navigating to "https://www.coachbill1club.org/", waiting until "domcontentloaded"
+
+freshness cutoff: 2025-10-31 (channels with latest upload before this are dropped)
+seen keys (4 prior dates): 212 emails, 212 urls
+
+=== meditation (14 keywords × 3 pages) ===
+  search 'guided meditation teacher': pulled 150 (117 new uniq; cumul=117)
+  search 'mindfulness meditation teacher': pulled 150 (93 new uniq; cumul=210)
+  search 'online meditation course': pulled 150 (136 new uniq; cumul=346)
+  search 'meditation for beginners channel': pulled 150 (145 new uniq; cumul=491)
+  search 'daily meditation practice teacher': pulled 150 (106 new uniq; cumul=597)
+  search 'vipassana meditation teacher': pulled 150 (131 new uniq; cumul=728)
+  search 'insight meditation teacher': pulled 150 (100 new uniq; cumul=828)
+  search 'zen meditation teacher': pulled 150 (115 new uniq; cumul=943)
+  search 'buddhist meditation teacher': pulled 150 (91 new uniq; cumul=1034)
+  search 'MBSR teacher online': pulled 22 (18 new uniq; cumul=1052)
+  search 'mindfulness based stress reduction': pulled 150 (128 new uniq; cumul=1180)
+  search 'yoga nidra teacher': pulled 150 (137 new uniq; cumul=1317)
+  search 'sleep meditation channel': pulled 121 (111 new uniq; cumul=1428)
+  search 'transcendental meditation teacher': pulled 108 (102 new uniq; cumul=1530)
+  fetched 1530 channel snippets
+      [playlistItems ERR] UUoafgipbngYpBrZ3JfnmsWQ: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?playlistId=UUoafgipbngYpBrZ3JfnmsWQ&part=snippet&maxResults=1&key=AIzaSyAb2-LhWMNA7-qbNqCZ8z7LaL5vDGuo_LY&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+      [playlistItems ERR] UUdE_VsmyV3Ap2_37A5a0D8Q: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?playlistId=UUdE_VsmyV3Ap2_37A5a0D8Q&part=snippet&maxResults=1&key=AIzaSyAb2-LhWMNA7-qbNqCZ8z7LaL5vDGuo_LY&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+      [playlistItems ERR] UUfyATibuPhZazOQ1yK7V1Pg: <HttpError 404 when requesting https://youtube.googleapis.com/youtube/v3/playlistItems?playlistId=UUfyATibuPhZazOQ1yK7V1Pg&part=snippet&maxResults=1&key=AIzaSyAb2-LhWMNA7-qbNqCZ8z7LaL5vDGuo_LY&alt=json returned "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.". Details: "[{'message': "The playlist identified with the request's <code>playlistId</code> parameter cannot be found.", 'domain': 'youtube.playlistItem', 'reason': 'playlistNotFound', 'location': 'playlistId', 'locationType': 'parameter'}]">
+  dropped (stale, last upload <2025-10-31): 112
+  phase 1 (desc-email): 17 new
+  phase 2 (bio-crawl candidates): 246
+  phase 2 (bio-crawl): 19 new
+  appended 36; elapsed 1191.5s
+
+=== mindset (6 keywords × 2 pages) ===
+  search 'wim hof breathwork instructor': pulled 64 (64 new uniq; cumul=64)
+  search 'pranayama breathing technique teacher': pulled 100 (98 new uniq; cumul=162)
+  search 'holotropic breathwork facilitator': pulled 20 (20 new uniq; cumul=182)
+  search 'mindset coach motivation': pulled 100 (100 new uniq; cumul=282)
+  search 'confidence coach personal development': pulled 100 (96 new uniq; cumul=378)
+  search 'stress management coach online': pulled 100 (98 new uniq; cumul=476)
+  fetched 476 channel snippets
+  dropped (stale, last upload <2025-10-31): 20
+  phase 1 (desc-email): 7 new
+  phase 2 (bio-crawl candidates): 98
+  phase 2 (bio-crawl): 5 new
+  appended 12; elapsed 247.6s
+
+=== fitness (6 keywords × 2 pages) ===
+  search 'mobility coach posture training': pulled 100 (85 new uniq; cumul=85)
+  search 'kettlebell training coach': pulled 100 (98 new uniq; cumul=183)
+  search 'calisthenics street workout coach': pulled 100 (85 new uniq; cumul=268)
+  search 'powerlifting coach online': pulled 100 (99 new uniq; cumul=367)
+  search 'women's strength training coach': pulled 100 (82 new uniq; cumul=449)
+  search 'recovery rehabilitation fitness coach': pulled 100 (99 new uniq; cumul=548)
+  fetched 548 channel snippets
+  dropped (stale, last upload <2025-10-31): 39
+  phase 1 (desc-email): 12 new
+  phase 2 (bio-crawl candidates): 140
+  phase 2 (bio-crawl): 4 new
+  appended 16; elapsed 299.7s
+
+=== nutrition (6 keywords × 2 pages) ===
+  search 'sports nutrition coach online': pulled 100 (100 new uniq; cumul=100)
+  search 'gut health nutritionist': pulled 100 (85 new uniq; cumul=185)
+  search 'intermittent fasting coach': pulled 100 (100 new uniq; cumul=285)
+  search 'women's hormonal health nutrition': pulled 100 (97 new uniq; cumul=382)
+  search 'functional nutrition coach': pulled 100 (85 new uniq; cumul=467)
+  search 'metabolic health coach': pulled 100 (82 new uniq; cumul=549)
+  fetched 549 channel snippets
+  dropped (stale, last upload <2025-10-31): 19
+  phase 1 (desc-email): 6 new
+  phase 2 (bio-crawl candidates): 98
+  phase 2 (bio-crawl): 5 new
+  appended 11; elapsed 181.9s
+
+estimated quota used in this run: 8677
+
+stale drops per category:
+  meditation: 112
+  mindset: 20
+  fitness: 39
+  nutrition: 19
+
+New rows per category (these need mapping_2026-04-29 entries):
+  meditation: 36
+    + wednesdaynightconversations@gmail.com	(via desc)
+    + daniel.soderholm@telia.com	(via desc)
+    + hello@zuriretreats.com	(via desc)
+    + aditi@dynamicmindsgroup.com	(via desc)
+    + yogashowstheway@yahoo.com	(via desc)
+    + Rhi1122@icloud.com	(via desc)
+    + divyasrijansamaj@gmail.com	(via desc)
+    + navneetisingh1432@gmail.com	(via desc)
+    + bkdrraj@gmail.com	(via desc)
+    + Adwaityoga@gmail.com	(via desc)
+    + mamtajain16772@gmail.com	(via desc)
+    + dbhatnagar425@gmail.com	(via desc)
+    + contactmagicalmind@gmail.com	(via desc)
+    + oshani@gmail.com	(via desc)
+    + bereniceyoganidra@gmail.com	(via desc)
+    + GuidedMeditationsKF@gmail.com	(via desc)
+    + deesideyogainstitute@gmail.com	(via desc)
+    + nikki@thetranquillity.co.uk	(via bio)
+    + ally@sarovarayoga.ca	(via bio)
+    + info@unplug.com	(via bio)
+    + hello@peacefulwellness.studio	(via bio)
+    + support@spotify.com	(via bio)
+    + mail@anuragrishi.com	(via bio)
+    + contact@pmchindi.com	(via bio)
+    + bksongchai@gmail.com	(via bio)
+    + rbjgurukulofficial@gmail.com	(via bio)
+    + email@address.com	(via bio)
+    + gopal@heartnest.in	(via bio)
+    + support@corymuscara.com	(via bio)
+    + andy@freemeditationtv.com	(via bio)
+    + hello@buddhadailywisdom.com	(via bio)
+    + info@lionwisdom.org	(via bio)
+    + wellness@kristynroseyoga.ca	(via bio)
+    + contact@aylanova.com	(via bio)
+    + kristi.kuttner@gmail.com	(via bio)
+    + akhandayoga@uscreen.support	(via bio)
+  mindset: 12
+    + yogadeep1909@gmail.com	(via desc)
+    + movewithagnes@gmail.com	(via desc)
+    + mindsetcoachmaria@gmail.com	(via desc)
+    + contact@intothedeep.info	(via desc)
+    + mahendradogneylifecoach@gmail.com	(via desc)
+    + alison@happisoul.com	(via desc)
+    + suyashpukale24@gmail.com	(via desc)
+    + aymindia@gmail.com	(via bio)
+    + info@divine-light-yoga.com	(via bio)
+    + gpk-usersupport@google.com	(via bio)
+    + info@psychedelic.support	(via bio)
+    + helpdesk@coachdeepadivaakar.com	(via bio)
+  fitness: 16
+    + contact@posturetonic.com	(via desc)
+    + flexformbyshan@gmail.com	(via desc)
+    + mediarelations@foundationtraining.com	(via desc)
+    + info@fitfxtraining.ca	(via desc)
+    + son5mike@gmail.com	(via desc)
+    + magdalenakognetx@gmail.com	(via desc)
+    + Carolinejordan@gushcloud.com	(via desc)
+    + samoelworkout@gmail.com	(via desc)
+    + conceptnxc@gmail.com	(via desc)
+    + dejan.stipic@365fit.ae	(via desc)
+    + stayfit@arogyaphysio.com	(via desc)
+    + Jmont_fit@yahoo.com	(via desc)
+    + info@danielptfitness.com	(via bio)
+    + info@integrityattitudehustle.com	(via bio)
+    + support@kettlebelltransformation.co	(via bio)
+    + ulusoychannel@gmail.com	(via bio)
+  nutrition: 11
+    + Babydharani@gmail.com	(via desc)
+    + gabrielle@dietitiangabrielle.com	(via desc)
+    + coachdrmahmud@gmail.com	(via desc)
+    + care@bestsourcenutrition.com	(via desc)
+    + nicki@happyhormonesforlife.com	(via desc)
+    + hello@wholesomeliving.my	(via desc)
+    + optimizewithmanana@gmail.com	(via bio)
+    + andy@healthcoachandy.com	(via bio)
+    + info@metabolicinitiative.com	(via bio)
+    + uche@rehyahealth.com	(via bio)
+    + support@emetabolic.com	(via bio)

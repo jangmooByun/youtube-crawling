@@ -20,7 +20,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "support@shaolin.online": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "DE Shaolin Temple Europe founder — Shaolin / Zen practice, body-mind unity, internal+external strength (Shi Heng Yi, 659K)",
         "segment_original": "DE Shaolin / Zen Master (online courses)",
         "industry": "Meditation Teacher (Zen / Shaolin)",
@@ -28,7 +28,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "contact@newhorizonholisticcentre.co.uk": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB guided meditations + sleep stories for adults & kids, used by parents/teachers/therapists worldwide (New Horizon, 415K)",
         "segment_original": "GB Sleep Meditation + Guided Meditation Brand",
         "industry": "Meditation Audio Brand (B2C)",
@@ -44,7 +44,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "info@carolinemccready.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB meditation teacher since 2011 — deep relaxation + breathwork + effortless-focus practice (Caroline McCready, 96.4K)",
         "segment_original": "GB Online Meditation Teacher (relaxation focus)",
         "industry": "Meditation Teacher (online)",
@@ -52,7 +52,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "info@jackkornfield.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Western mindfulness icon — Buddhist monk training + clinical-psych PhD + co-founder Insight Meditation Society + Spirit Rock (Jack Kornfield, 57.9K — duplicate of mindful row, will dedup)",
         "segment_original": "US Buddhist Mindfulness Teacher + Author + Founder",
         "industry": "Meditation Teacher (Buddhist / clinical-mindfulness)",
@@ -60,7 +60,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "digital@silvamethod.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Silva Method International — Jose Silva's signature meditation method + healing + manifestation (Silva Method Official, 34.6K)",
         "segment_original": "US Silva Method Brand (legacy method)",
         "industry": "Meditation Method / Brand",
@@ -68,7 +68,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "englishbuddhistmonk@gmail.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB-born Theravada Buddhist Monk Bhante Dhammarakkhita (English Buddhist Monk, 29K) — based across India/Thailand/Sri Lanka",
         "segment_original": "GB Theravada Buddhist Monk",
         "industry": "Meditation Teacher (Theravada)",
@@ -76,7 +76,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "gratitude@insightmeditationcenter.org": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IMC gratitude / dāna inbox — community Vipassana / mindfulness Buddhist center (Gil Fronsdal + Andrea Fella, 28.8K — duplicate channel from mindful, additional email)",
         "segment_original": "US IMC dāna / gratitude inbox",
         "industry": "Meditation Center (Buddhist / Vipassana)",
@@ -84,7 +84,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "contact@lbc.org.uk": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB London Buddhist Centre — Buddhism + meditation classes globally + Dharma talks (London Buddhist Centre, 24K)",
         "segment_original": "GB Buddhist Center (online + in-person)",
         "industry": "Meditation Center (Buddhist)",
@@ -92,7 +92,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "support@breakthroughapps.io": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US 'Chill Pill with Yogi Bryan' meditation app + sleep meditations + Skool teacher training (Yogi Bryan, 22.4K, already mobile-native)",
         "segment_original": "US Sleep / Meditation App + Teacher Training (already on Breakthrough Apps)",
         "industry": "Meditation App + Coach Training",
@@ -100,7 +100,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "hellograndmeditation@gmail.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Sivananda Yoga-cert teacher offering guided meditations + Kriya breathwork + chakra balancing + sleep meditations (Grand Meditation, 18.1K)",
         "segment_original": "US Multi-modal Meditation + Kriya Breathwork",
         "industry": "Meditation Teacher (online, multi-tradition)",
@@ -108,7 +108,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "idanim-product-team@tothenew.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IN free meditation app from India with LIVE classes + 1000+ guided meditations Hindi/English (Idanim English, 8.83K, already mobile-native — built by ToTheNew agency)",
         "segment_original": "IN Meditation App (English channel, agency-built)",
         "industry": "Meditation App (B2C)",
@@ -116,7 +116,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "socialmedia@heartfulness.org": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IN Heartfulness Meditation — heart-based Raja-Yoga-rooted meditation with Yogic transmission (Practice Heartfulness, 8.62K)",
         "segment_original": "IN Heartfulness Meditation Org (global)",
         "industry": "Meditation Method / Org",
@@ -124,7 +124,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "training@zendust.org": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Zen Community of Oregon — Great Vow Zen Monastery led by Jan Chozen Bays Roshi + Hogen Bays Roshi (Great Vow Zen Monastery, 6.05K)",
         "segment_original": "US Soto Zen Monastery (training inbox)",
         "industry": "Meditation Center (Zen)",
@@ -132,7 +132,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "hello@mcleanmeditation.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US Sarah McLean — TM-trained, Deepak Chopra Center co-founder + 30yr meditation teacher (Sarah McLean Meditation & Mindfulness, 4.64K)",
         "segment_original": "US TM + Mindfulness Teacher (legacy creator)",
         "industry": "Meditation Teacher (TM / mindfulness, online)",
@@ -140,7 +140,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "info@mindfulnessassociation.net": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB Mindfulness Association — long-term systematic mindfulness training (foundation → compassion → insight) (Mindfulness Association, 3.48K)",
         "segment_original": "GB Mindfulness Training Org (B2C structured curriculum)",
         "industry": "Meditation Training (mindfulness curriculum)",
@@ -148,7 +148,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "anumodanasankalpa@gmail.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "IN Theravada Buddhist channel teaching step-by-step path to Nibbana for lay followers (Understanding Buddha's Teachings, 2.75K)",
         "segment_original": "IN Theravada Buddhist Teachings (lay-followers focus)",
         "industry": "Meditation Teacher (Theravada / sutta-based)",
@@ -156,7 +156,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "keith@meditationbreaks.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "US in-person + online live guided meditation for offices/schools/communities (Meditation Breaks, 1.88K)",
         "segment_original": "US B2B Live Meditation Service (offices/schools)",
         "industry": "Meditation Service (B2B + B2C)",
@@ -164,7 +164,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "joy@thedailymeds.com": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB Natalie Lauraine — short real-life meditations for hangovers/comedowns/anxiety/loneliness (The Daily Meds, 1.82K)",
         "segment_original": "GB Modern Short-Form Meditation Brand (life-moment niche)",
         "industry": "Meditation Audio Brand (modern, niche-moments)",
@@ -172,7 +172,7 @@ MAPPING: dict[str, dict[str, str]] = {
     },
 
     "info@aukana.org.uk": {
-        "category": "meditation",
+        "category": "mindset",
         "niche": "GB Paul Harris — Spiritual Director of House of Inner Tranquillity, a Buddhist Insight Meditation Retreat Centre in SW England (1.01K)",
         "segment_original": "GB Buddhist Insight Meditation Retreat Centre (Spiritual Director)",
         "industry": "Meditation Center (Buddhist / Insight)",

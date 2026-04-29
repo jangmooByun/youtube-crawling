@@ -11,10 +11,10 @@ Inputs (sources #1~#8 per the approved plan):
                                                    — overrides niche/seg/industry/angle if missing)
 
 Outputs:
-  data/total/mindset.csv      (yoga + breathwork + mindset coach)
-  data/total/meditation.csv   (meditation only)
+  data/total/mindset.csv      (meditation + breathwork + mindset coach)
+  data/total/yoga.csv         (asana/vinyasa/hatha/kundalini/Rishikesh/yoga TTC)
   data/total/fitness.csv      (PT/CrossFit/Pilates/strength/...)
-  data/total/nutrition.csv    (dietitian/RD/diet coach/...)
+  data/total/nutrition.csv    (dietitian/RD/diet coach/healthy lifestyle/...)
 
 Behavior:
   - Each row's category is looked up via category_split_mapping (for #1~#6)
@@ -55,7 +55,7 @@ UNIFIED_FIELDS = [
     "source_url", "raw_context", "is_role_based", "has_mx", "detected_tech",
 ]
 
-CATEGORIES = ("mindset", "meditation", "fitness", "nutrition")
+CATEGORIES = ("mindset", "yoga", "fitness", "nutrition")
 
 SOURCES_19COL = [
     DATA / "2026-04-24" / "fitness_enriched.csv",
@@ -68,6 +68,13 @@ SOURCES_19COL = [
 SOURCE_LEGACY = DATA / "_legacy_enriched.csv"
 SOURCE_MINDFUL = DATA / "_mindful_enriched.csv"
 SOURCE_MEDITATION_0428 = DATA / "2026-04-28" / "meditation_enriched.csv"
+SOURCE_29_MEDITATION = DATA / "2026-04-29" / "meditation_enriched.csv"
+SOURCE_29_MINDSET = DATA / "2026-04-29" / "mindset_enriched.csv"
+SOURCE_29_FITNESS = DATA / "2026-04-29" / "fitness_enriched.csv"
+SOURCE_29_NUTRITION = DATA / "2026-04-29" / "nutrition_enriched.csv"
+SOURCE_29_YOGA_EXTRA = DATA / "2026-04-29" / "yoga_enriched_extra.csv"
+SOURCE_29_MINDSET_EXTRA = DATA / "2026-04-29" / "mindset_enriched_extra.csv"
+SOURCE_29_NUTRITION_EXTRA = DATA / "2026-04-29" / "nutrition_enriched_extra.csv"
 
 
 def _load_module(path: Path):
@@ -119,6 +126,18 @@ def main() -> None:
     mindful_map = _load_module(mindful_path_mod).MAPPING if mindful_path_mod.exists() else {}
     meditation_0428_mod = SCRIPTS / "meditation_2026-04-28.py"
     meditation_0428_map = _load_module(meditation_0428_mod).MAPPING if meditation_0428_mod.exists() else {}
+
+    def _maybe_load(name: str) -> dict:
+        p = SCRIPTS / name
+        return _load_module(p).MAPPING if p.exists() else {}
+
+    map_29_meditation = _maybe_load("meditation_mapping_2026-04-29.py")
+    map_29_mindset = _maybe_load("mindset_mapping_2026-04-29.py")
+    map_29_fitness = _maybe_load("fitness_mapping_2026-04-29.py")
+    map_29_nutrition = _maybe_load("nutrition_mapping_2026-04-29.py")
+    map_29_yoga_extra = _maybe_load("yoga_mapping_2026-04-29_extra.py")
+    map_29_mindset_extra = _maybe_load("mindset_mapping_2026-04-29_extra.py")
+    map_29_nutrition_extra = _maybe_load("nutrition_mapping_2026-04-29_extra.py")
 
     buckets: dict[str, dict[tuple[str, str], dict]] = {c: {} for c in CATEGORIES}
     counters = {"drops": 0, "jpkr": 0}
@@ -180,11 +199,19 @@ def main() -> None:
                 continue
             insert_simple(_norm(r), cat)
 
-    # 2) legacy / mindful / meditation-04-28 — full-dict mapping (category + niche/seg/industry/angle)
+    # 2) legacy / mindful / meditation-04-28 / 04-29 sweep — full-dict mapping
+    #    (category + niche/seg/industry/angle)
     for src_path, mapping in [
         (SOURCE_LEGACY, legacy_map),
         (SOURCE_MINDFUL, mindful_map),
         (SOURCE_MEDITATION_0428, meditation_0428_map),
+        (SOURCE_29_MEDITATION, map_29_meditation),
+        (SOURCE_29_MINDSET, map_29_mindset),
+        (SOURCE_29_FITNESS, map_29_fitness),
+        (SOURCE_29_NUTRITION, map_29_nutrition),
+        (SOURCE_29_YOGA_EXTRA, map_29_yoga_extra),
+        (SOURCE_29_MINDSET_EXTRA, map_29_mindset_extra),
+        (SOURCE_29_NUTRITION_EXTRA, map_29_nutrition_extra),
     ]:
         if not src_path.exists() or not mapping:
             continue

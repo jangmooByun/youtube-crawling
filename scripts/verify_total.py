@@ -1,4 +1,4 @@
-"""End-to-end verification for data/total/{mindset,meditation,fitness,nutrition}.csv.
+"""End-to-end verification for data/total/{mindset,yoga,fitness,nutrition}.csv.
 
 Checks:
   (1) per-category row counts + country distribution
@@ -24,7 +24,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TOTAL = ROOT / "data" / "total"
-CATEGORIES = ("mindset", "meditation", "fitness", "nutrition")
+CATEGORIES = ("mindset", "yoga", "fitness", "nutrition")
 
 UNIFIED_FIELDS = [
     "first_name", "full_name", "handle", "platform", "follower_count", "country",
