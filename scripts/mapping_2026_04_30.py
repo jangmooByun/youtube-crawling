@@ -501,4 +501,226 @@ MAPPING = {
     "helloboy1979@gmail.com":             {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # Dr Manjunath — accelerated learning, off-topic
     "customercare@align-pilates.com":     {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # Align-Pilates — equipment brand
     "stefan.jarmolowicz@upfitness.com":   {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # UltimatePerformance — large PT chain
+
+    # ============================================================
+    # 0430 ROUND 3 — 추가 discover (4 카테고리 keyword 보강) 결과
+    # ============================================================
+
+    # --- FITNESS (Round 3) ---
+    "kaykay@creatorplace.de": {
+        "category": "fitness",
+        "niche": "Certified Athletic Fitness Instructor — YT homeworkouts + functional progressive weight training",
+        "segment_original": "DE functional fitness creator (fitness__kaykay, 978K)",
+        "industry": "Fitness Coach (B2C, DE market)",
+        "angle_to_take": "KayKay (978K, DE) blends YT homeworkouts with paid in-person/online weight training. Frame a branded app: progressive program tracks + form-cue audio + DE-first UX — bridges her free YT funnel to paid programs without forcing students through a Wix/Memberstack stack.",
+    },
+    "movewithagnes@gmail.com": {
+        "category": "fitness",
+        "niche": "IISM-certified Health & Fitness Coach + Pilates + Yoga instructor (movement-as-medicine)",
+        "segment_original": "CA multi-modality wellness coach (Akshaya Agnes, 470K)",
+        "industry": "Fitness / Pilates / Yoga Coach (B2C)",
+        "angle_to_take": "Agnes (470K, CA) covers fitness + pilates + yoga in one channel. Frame a branded app with mood/energy-based picker: AM strength / midday Pilates / evening yoga — turns the multi-discipline content from confusing to a feature, with daily routine recommendations the algorithm can't replicate.",
+    },
+    "effectiveworkout02@gmail.com": {
+        "category": "fitness",
+        "niche": "Per-muscle-group exercises for strength + aesthetic body",
+        "segment_original": "Generic muscle-group workout creator (EFFECTIVE WORKOUT, 164K)",
+        "industry": "Fitness Creator (B2C)",
+        "angle_to_take": "EFFECTIVE WORKOUT (164K) tags content by muscle group. Frame a branded app: muscle-group split program builder + body-part calendar + photo progress timeline — the niche isn't the creator's persona but the structured content itself, app-ready format.",
+    },
+    "coachjoelionsden@gmail.com": {
+        "category": "fitness",
+        "niche": "Strongman athlete + gym owner + CrossFit/Olympic lifting + Team USA strongman",
+        "segment_original": "US strongman + gym owner (Szatstrength, 138K)",
+        "industry": "Strongman Coach + Gym Owner (B2C)",
+        "angle_to_take": "Szat (138K) is a Team USA strongman + full-time gym owner. Frame a branded app for the strongman/strength niche: lift-specific program tracks (log press, atlas stones) + competition prep timeline + RPE logger — small audience but high ticket willingness for niche-authority content.",
+    },
+    "kirra@strongsistersunited.com": {
+        "category": "fitness",
+        "niche": "FREE at-home dumbbell workouts for women beginners — Strength Sisters United community",
+        "segment_original": "US women's strength creator (Kirra Mitlo, 93.6K)",
+        "industry": "Strength Coach (B2C, women beginner)",
+        "angle_to_take": "Kirra (93.6K) is 9 years deep into the women's strength niche. Frame a branded app: dumbbell-only progression tracks + community wall + cycle-aware programming — a women-first strength app that the male-default lifting apps don't serve.",
+    },
+    "trainers@marklauren.com": {
+        "category": "fitness",
+        "niche": "Bodyweight workouts (fitness author of \"You Are Your Own Gym\" / Fit ohne Geräte)",
+        "segment_original": "US/global bodyweight authority + author + Mark Lauren On Demand (Mark Lauren, 77.7K)",
+        "industry": "Fitness Author + Coach (B2C)",
+        "angle_to_take": "Mark Lauren (77.7K) sells \"Mark Lauren On Demand\" subscription already + book IP. Frame a refreshed v2 app: book-companion tracks + bodyweight progressive overload calculator + travel-friendly anywhere-routine generator — converts book buyers to subscribers at higher LTV than current OnDemand site.",
+    },
+    "samueljordanfitness@gmail.com": {
+        "category": "fitness",
+        "niche": "IKU-certified kettlebell instructor + fitness trainer (touring musician background)",
+        "segment_original": "GB kettlebell coach (Samuel Jordan, 65.8K)",
+        "industry": "Kettlebell Coach (B2C)",
+        "angle_to_take": "Samuel (65.8K, GB) sells the busy-professional angle (musician schedule). Frame a branded app: 15/30/45-min kettlebell session picker + tour-life travel routines + minimalist gear library — niche app for kettlebell devotees the broad fitness apps don't optimize for.",
+    },
+    "mywkout@gmail.com": {
+        "category": "fitness",
+        "niche": "Workouts + Diet Tips + Exercise (TheWKOUT brand, IP-owned)",
+        "segment_original": "GB fitness creator with brand IP (TheWKOUT, 61.7K)",
+        "industry": "Fitness Creator + Brand (B2C)",
+        "angle_to_take": "Lisa-Marie (61.7K) protects IP carefully (\"Property of TheWKOUT LTD\"). Frame a branded app where content + monetization sit inside a single owned property — DRM-friendly video player + subscription + her IP not exposed to YT recommendation siphoning.",
+    },
+    "t_van_spanje@hotmail.com": {
+        "category": "fitness",
+        "niche": "Personal trainer + gym owner in Sydney — health/fitness/strength education since 2004",
+        "segment_original": "AU PT + gym owner (Troy van spanje, 13.5K)",
+        "industry": "Personal Trainer + Gym Owner (B2C, AU)",
+        "angle_to_take": "Troy (13.5K, AU) brings 20+ years PT credibility but small audience. Frame a branded app: in-person gym member companion + take-home program library + post-session recovery prompts — turns gym walk-ins into 12-month app subscribers, lifting LTV per body in the room.",
+    },
+
+    # --- MINDSET (Round 3) ---
+    "connect@manifestwithmatt.com": {
+        "category": "mindset",
+        "niche": "Daily manifestation videos + inspiration (post-The-Secret discovery story)",
+        "segment_original": "US manifestation creator (Manifest with Matt, 1.19M)",
+        "industry": "Manifestation Coach (B2C)",
+        "angle_to_take": "Matt (1.19M, US) ships daily content — a habit-format opportunity. Frame a branded app: daily affirmation push at user-chosen time + manifestation-journal templates + 21-day program tracks — turns daily YT viewing into a habit-forming subscription (audio + journal in one).",
+    },
+    "connect@readersbooksclub.com": {
+        "category": "mindset",
+        "niche": "Law of Attraction + Manifestation Coach + author + 19yr trainer (Readers Books Club founder, 3.3M sub network)",
+        "segment_original": "IN top-tier manifestation/LoA authority (Dr Amiett Kumar, 989K)",
+        "industry": "Manifestation Coach + Author (B2C, IN tier-1)",
+        "angle_to_take": "Dr Amiett (989K, IN) heads a 3.3M-sub Readers Books Club + 19yr training history. Frame a branded app: book-summary library + LoA program tracks + member community in Hindi/English — product-izes the book-club model that's already a habit for his audience.",
+    },
+    "drarchanalifecoach@gmail.com": {
+        "category": "mindset",
+        "niche": "Life Coach + Advanced Hypnotherapist + Manifestation (science-of-mind framing)",
+        "segment_original": "IN hypnotherapy + manifestation coach (Dr. Archana, 424K)",
+        "industry": "Hypnotherapy / Manifestation Coach (B2C, IN market)",
+        "angle_to_take": "Dr. Archana (424K, IN) bridges clinical hypnotherapy + manifestation. Frame a branded app: hypnosis audio library + manifestation worksheets + paid 1:1 booking — productizes a therapy practice that today runs out of WhatsApp + Zoom.",
+    },
+    "megan.transcendingreality@gmail.com": {
+        "category": "mindset",
+        "niche": "Manifestation for love/self-worth/abundance — \"spoiled, chosen, cherished\" framing",
+        "segment_original": "Manifestation coach for women (Megan, 130K)",
+        "industry": "Manifestation Coach (B2C, women's niche)",
+        "angle_to_take": "Megan (130K) targets a sharp niche (manifesting secure love). Frame a branded app: outcome-themed program tracks (Secure Love 30-day / Self-Worth Reset) + journaling prompts + private community for paid tier — niche audience ready to pay for outcome-tagged products.",
+    },
+    "aindianmeditation@gmail.com": {
+        "category": "mindset",
+        "niche": "Law of Attraction (channel name signals only — bio is empty)",
+        "segment_original": "IN LoA channel (Rishabh Gautam, 120K)",
+        "industry": "Manifestation / LoA Creator (B2C, IN market)",
+        "angle_to_take": "Rishabh (120K, IN) has a faceless-channel feel — bio is empty, leans on title alone. Frame a branded app: LoA audio meditation library + Hindi-first UX + faceless creator-friendly anonymous community — productizes a channel that's audio-first and doesn't need the creator's face.",
+    },
+    "tam@mvetalent.com": {
+        "category": "mindset",
+        "niche": "Self Obsessed Podcast — self-love / growth / confidence (host Tam Kaur, weekly)",
+        "segment_original": "GB self-help podcaster (Self Obsessed Podcast, 92.5K)",
+        "industry": "Self-Help Podcaster (B2C, agency-managed)",
+        "angle_to_take": "Self Obsessed (92.5K, GB) runs newsletter + podcast — audio-first audience. Frame a branded app: weekly episode library + journal prompts tied to each episode + a paid premium-only feed with bonus content — converts free podcast listeners into a paid feed without depending on Patreon's UX.",
+    },
+    "sessions@createyourfuture.co": {
+        "category": "mindset",
+        "niche": "Manifestation channel — Neville Goddard's Law of Assumption / Law of Attraction",
+        "segment_original": "CA Neville-Goddard manifestation duo (CYF | Manifesting Coaches, 76.6K)",
+        "industry": "Manifestation Coach (B2C, esoteric niche)",
+        "angle_to_take": "CYF (76.6K, CA) brand themselves as Manifesting Coaches. Frame a branded app: Neville-Goddard-method program tracks + SATS (state akin to sleep) audio loops + outcome journaling — small but loyal Neville audience that pays a premium for canonical method content.",
+    },
+    "manifestingwithkimberly@gmail.com": {
+        "category": "mindset",
+        "niche": "Manifestation + Law of Assumption (HBIC framing — \"Limitless Flawless Sexy Sassy Saucy\")",
+        "segment_original": "US manifestation creator (Manifesting with Kimberly, 52.2K)",
+        "industry": "Manifestation Coach (B2C)",
+        "angle_to_take": "Kimberly (52.2K) leans into a sharp brand voice (HBIC). Frame a branded app: voice-strong affirmation tracks + bold-outcome program names + community wall — a niche product that doubles down on personality where the generic manifestation apps go neutral.",
+    },
+    "soraya.in.paradise@gmail.com": {
+        "category": "mindset",
+        "niche": "French-language Law of Attraction teacher (la loi de l'attraction)",
+        "segment_original": "FR LoA creator (Soraya in Paradise, 11.2K)",
+        "industry": "Manifestation Coach (B2C, FR market)",
+        "angle_to_take": "Soraya (11.2K) serves the French manifestation niche. Frame a branded French-first manifestation app: LoA program tracks + journaling templates + audio meditations all in FR — fills a gap left by English-default manifestation apps for a francophone audience.",
+    },
+    "mommermaidcoaching@yahoo.com": {
+        "category": "mindset",
+        "niche": "Manifestation/Mindset Coach across love, money, self-concept, family, school grades",
+        "segment_original": "US manifestation coach (Marcia Frame, 10.8K)",
+        "industry": "Manifestation Coach (B2C)",
+        "angle_to_take": "Marcia (10.8K, US) covers a wide manifestation surface (relationships, money, grades). Frame a branded app organized by life-area tabs (Love / Money / Family / School) with track-specific scripts and audio — turns sprawling YT topics into a structured product the listener can subscribe per-area.",
+    },
+
+    # --- YOGA (Round 3) ---
+    "yogaworldtx@gmail.com": {
+        "category": "yoga",
+        "niche": "Multi-instructor yoga channel (Echo Wilmer, Cole Chance, Jen Hilman, etc.)",
+        "segment_original": "US multi-teacher yoga channel (YOGATX, 353K)",
+        "industry": "Yoga Channel / Network (B2C)",
+        "angle_to_take": "YOGATX (353K, US) hosts multiple instructors — a network model. Frame a branded app where each teacher has their own program track + revenue split + signature library — productizes the channel-as-network into a creator-platform app, with measurable per-teacher subscription split.",
+    },
+    "yogawithkatharine@gmail.com": {
+        "category": "yoga",
+        "niche": "At-home flexibility + mobility routines",
+        "segment_original": "Flexibility/mobility yoga creator (Move With Katharine, 299K)",
+        "industry": "Yoga / Mobility Coach (B2C)",
+        "angle_to_take": "Katharine (299K) tags content by outcome (flexibility, mobility) not by yoga style. Frame a branded app: outcome-based program tracks + flexibility-progress photo timeline + before/after pose comparison — productizes the rare outcome-first yoga positioning.",
+    },
+    "krista@theyogashala.com": {
+        "category": "yoga",
+        "niche": "Level II Authorized Ashtanga Yoga teacher + The Yoga Shala studio (Maitland, FL)",
+        "segment_original": "US Ashtanga authority + studio owner (Yoga with Krista, 91.8K)",
+        "industry": "Yoga Teacher + Studio Owner (B2C, niche-authority)",
+        "angle_to_take": "Krista (91.8K) is a Level II Authorized Ashtanga teacher — high-credentialed niche. Frame a branded app: Ashtanga primary/intermediate series breakdown + studio-member companion + traditional-method audio counts — small but high-pay-willingness Ashtanga community.",
+    },
+    "marinasanas@outlook.fr": {
+        "category": "yoga",
+        "niche": "French Hatha yoga teacher + naturopath + masseuse (well-being focus)",
+        "segment_original": "FR Hatha yoga creator (Marinasanas, 69.8K)",
+        "industry": "Yoga Teacher + Naturopath (B2C, FR market)",
+        "angle_to_take": "Marina (69.8K, FR) bundles yoga + naturopathy + massage education. Frame a branded French-first wellness app: yoga sessions + naturopath protocols + body-care guidance — productizes a multi-modality practice the standalone yoga apps can't host.",
+    },
+    "danysayoga@gmail.com": {
+        "category": "yoga",
+        "niche": "KPJAYI-authorized Ashtanga Yoga teacher (essence-of-yoga framing, Brazil)",
+        "segment_original": "BR Ashtanga authority (Dany Sa, 52.7K)",
+        "industry": "Yoga Teacher (B2C, BR market)",
+        "angle_to_take": "Dany (52.7K, BR) holds the KPJAYI authorization — top-tier Ashtanga credential. Frame a branded Portuguese-first Ashtanga app: traditional Mysore-style sequences + audio counts in Portuguese + practice-log calendar — niche app for a credential-conscious BR community.",
+    },
+    "ashtangajay@gmail.com": {
+        "category": "yoga",
+        "niche": "Ashtanga yoga in the tradition of Pattabhi Jois (Mysore-lineage)",
+        "segment_original": "IN Ashtanga teacher (ashtangajay, 23.7K)",
+        "industry": "Yoga Teacher (B2C, niche-traditional)",
+        "angle_to_take": "Ajay (23.7K, IN) sits in the strict-traditional Ashtanga lineage. Frame a branded app: primary-series countdown player + breath-pace audio cues + Mysore-self-practice tracker — built for the small but rigorous traditional-Ashtanga audience that wants tools mirroring an in-shala practice.",
+    },
+    "dianavassyoga@gmail.com": {
+        "category": "yoga",
+        "niche": "Sydney-based certified yoga teacher — self-care, health, mindfulness",
+        "segment_original": "AU yoga teacher (Flow with Diana, 13.9K)",
+        "industry": "Yoga Teacher (B2C, AU)",
+        "angle_to_take": "Diana (13.9K, AU) sits at a starter-funnel size. Frame a branded app: onboarding quiz → first 7-day yoga track + simple weekly schedule + email handoff to her — a lightweight first product that converts viewers without requiring a flagship membership upfront.",
+    },
+
+    # --- NUTRITION (Round 3) ---
+    "matt@influencerxbrand.com": {
+        "category": "nutrition",
+        "niche": "Certified Nutritional Practitioner — vegan + whole-food plant-based focus",
+        "segment_original": "CA vegan nutritionist (Simnett Nutrition, 773K)",
+        "industry": "Nutrition Coach (B2C, vegan vertical)",
+        "angle_to_take": "Derek (773K, CA) is a CNP focused on vegan thrive. Frame a branded app: plant-based meal plans + B12/iron-aware nutrient tracking + transition-from-omnivore onboarding — a vegan-specific nutrition app that the broad MyFitnessPal style can't compete with on dietary-philosophy fit.",
+    },
+    "ketodelacreme@gmail.com": {
+        "category": "nutrition",
+        "niche": "Keto-friendly + low-carb recipes — \"lazy keto\" no-macro-counting approach",
+        "segment_original": "US lazy-keto recipe creator (Keto De La Crème, 31.5K)",
+        "industry": "Nutrition / Recipe Creator (B2C, keto niche)",
+        "angle_to_take": "Keto De La Crème (31.5K, US) sells the no-macro-counting angle — accessible keto. Frame a branded app: lazy-keto recipe library + simple swap engine (\"replace this non-keto food with…\") + meal plan without numbers — distinguishes from keto apps that demand strict tracking.",
+    },
+    "plantbasedella.co@gmail.com": {
+        "category": "nutrition",
+        "niche": "Plant-based 99% nutrition student — recipes, meal ideas, tips (safe-space framing)",
+        "segment_original": "Plant-based nutrition student (plantbasedella, 5.96K)",
+        "industry": "Nutrition Student / Recipe Creator (B2C)",
+        "angle_to_take": "Ella (5.96K) is small but positions as accessible / no-judgment. Frame a branded starter app: plant-based recipe library + transitioning-to-plant-based 14-day track + journaling — a starter-funnel app that grows with her audience instead of overshooting current scale.",
+    },
+
+    # --- DROP (Round 3) ---
+    "mediarelations@athleanx.com":        {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # ATHLEAN-X — PR media role email, not founder direct
+    "courtneydblack@yahoo.com":           {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # Courtney Black — broad lifestyle (fitness+beauty+fashion+food)
+    "chinesemedicinepodcast@gmail.com":   {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # Chinese Medicine Podcast — off topic (TCM/herbalism)
+    "kelsey@kilostrengthsociety.com":     {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # KILO — B2B (trainer education), not B2C creator
+    "drosumbohspellcaster9@gmail.com":    {"category": "drop", "niche": "", "segment_original": "", "industry": "", "angle_to_take": ""},  # Osumboh — questionable spell-casting content
 }
