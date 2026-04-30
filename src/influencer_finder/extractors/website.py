@@ -13,7 +13,7 @@ import time
 import urllib.robotparser
 from dataclasses import dataclass
 from typing import Optional
-from urllib.parse import urljoin, urlparse
+from urllib.parse import urljoin, urlparse, urlunparse
 
 from bs4 import BeautifulSoup
 from playwright.sync_api import TimeoutError as PWTimeout
@@ -65,34 +65,66 @@ class WebsiteCrawler:
             self._pw.stop()
 
     def crawl(self, url: str) -> CrawlResult:
-        if self.respect_robots and not self._robots_allows(url):
-            return CrawlResult(url=url, success=False, emails=[], error="blocked_by_robots")
+        normalized = _normalize_crawl_url(url)
+        if normalized is None:
+            return CrawlResult(url=url, success=False, emails=[], error="invalid_url")
 
-        self._sleep()
-        ua = random.choice(self.user_agents)
-        try:
-            context = self._browser.new_context(user_agent=ua, viewport={"width": 1280, "height": 900})
-            page = context.new_page()
+        candidates = [normalized]
+        if normalized.startswith("https://"):
+            candidates.append("http://" + normalized[len("https://"):])
+        parsed = urlparse(normalized)
+        if parsed.path and parsed.path != "/":
+            root = f"{parsed.scheme}://{parsed.netloc}/"
+            if root not in candidates:
+                candidates.append(root)
+
+        last_error: Optional[str] = None
+        last_status: Optional[int] = None
+
+        for cand in candidates:
+            if self.respect_robots and not self._robots_allows(cand):
+                last_error = "blocked_by_robots"
+                continue
+
+            self._sleep()
+            ua = random.choice(self.user_agents)
             try:
-                response = page.goto(url, timeout=self.timeout_ms, wait_until="domcontentloaded")
-                status = response.status if response else None
+                context = self._browser.new_context(
+                    user_agent=ua, viewport={"width": 1280, "height": 900}
+                )
+                page = context.new_page()
                 try:
-                    page.wait_for_load_state("networkidle", timeout=5_000)
-                except PWTimeout:
-                    pass
-                html = page.content()
-            finally:
-                context.close()
-        except PWTimeout:
-            return CrawlResult(url=url, success=False, emails=[], error="timeout")
-        except Exception as e:
-            logger.warning("crawl %s failed: %s", url, e)
-            return CrawlResult(url=url, success=False, emails=[], error=str(e))
+                    response = page.goto(
+                        cand, timeout=self.timeout_ms, wait_until="domcontentloaded"
+                    )
+                    status = response.status if response else None
+                    try:
+                        page.wait_for_load_state("networkidle", timeout=5_000)
+                    except PWTimeout:
+                        pass
+                    html = page.content()
+                finally:
+                    context.close()
+            except PWTimeout:
+                last_error = "timeout"
+                continue
+            except Exception as e:
+                logger.warning("crawl %s failed: %s", cand, e)
+                last_error = str(e)
+                continue
 
-        emails = _extract_from_html(html, source_url=url)
-        tech = detect_tech_stack(html, url)
+            emails = _extract_from_html(html, source_url=cand)
+            tech = detect_tech_stack(html, cand)
+            return CrawlResult(
+                url=cand, success=True, emails=emails, detected_tech=tech, status=status
+            )
+
         return CrawlResult(
-            url=url, success=True, emails=emails, detected_tech=tech, status=status
+            url=url,
+            success=False,
+            emails=[],
+            error=last_error or "all_attempts_failed",
+            status=last_status,
         )
 
     def crawl_site_paths(
@@ -173,6 +205,31 @@ def _origin(url: str) -> Optional[str]:
         return f"{p.scheme}://{p.netloc}"
     except ValueError:
         return None
+
+
+import re as _re
+
+_BAD_WWW_SLASH = _re.compile(r"^(https?:)//www/", _re.IGNORECASE)
+_ZERO_WIDTH_CHARS = ("​", "‌", "‍", "﻿")
+
+
+def _normalize_crawl_url(url: str) -> Optional[str]:
+    if not url:
+        return None
+    cleaned = url.strip()
+    for ch in _ZERO_WIDTH_CHARS:
+        cleaned = cleaned.replace(ch, "")
+    cleaned = _BAD_WWW_SLASH.sub(r"\1//www.", cleaned)
+    try:
+        p = urlparse(cleaned)
+    except ValueError:
+        return None
+    if not p.scheme or not p.netloc:
+        return None
+    new_netloc = p.netloc.lower()
+    if new_netloc == p.netloc:
+        return cleaned
+    return urlunparse(p._replace(netloc=new_netloc))
 
 
 _DEFAULT_UA = (

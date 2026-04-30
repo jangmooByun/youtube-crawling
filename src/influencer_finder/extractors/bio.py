@@ -18,6 +18,20 @@ URL_RE = re.compile(
     re.IGNORECASE,
 )
 
+# Bare-domain match (no scheme, no www.) — restricted to a TLD whitelist and
+# requires every label to start with an alpha char, so version strings like
+# "python3.10.com" or "v1.0.com" don't false-match (the "10" / "0" labels fail).
+BARE_DOMAIN_RE = re.compile(
+    r"(?<![A-Za-z0-9@/.\-:])"
+    r"(?:[a-z](?:[a-z0-9\-]{0,62}[a-z0-9])?\.)+"
+    r"(?:com|co|net|org|io|app|me|bio|store|shop|live|tv|"
+    r"studio|academy|world|fit|fitness|yoga|coach|life|"
+    r"club|page|site|online|wellness|health)"
+    r"(?:/[^\s<>\"'()]*)?"
+    r"(?![A-Za-z0-9])",
+    re.IGNORECASE,
+)
+
 INSTAGRAM_RE = re.compile(
     r"(?:https?://)?(?:www\.)?instagram\.com/([A-Za-z0-9_.]{1,30})/?",
     re.IGNORECASE,
@@ -40,6 +54,17 @@ LINK_IN_BIO_DOMAINS = {
     "linkin.bio",
     "withkoji.com",
     "taplink.cc",
+    "direct.me",
+    "koji.to",
+    "carrd.co",
+    "popl.co",
+    "mssg.me",
+    "flowpage.com",
+    "later.bio",
+    "msha.ke",
+    "znap.link",
+    "linkr.bio",
+    "magic.link",
 }
 
 SOCIAL_DOMAINS = {
@@ -81,6 +106,7 @@ def extract_bio_links(text: str) -> BioLinks:
             seen["tt"].add(h)
             result.tiktok_handles.append(h)
 
+    seen_hosts: set[str] = set()
     for raw_url in URL_RE.findall(text):
         url = _normalize_url(raw_url)
         if not url:
@@ -88,6 +114,24 @@ def extract_bio_links(text: str) -> BioLinks:
         host = _host(url)
         if not host:
             continue
+        seen_hosts.add(host)
+        if host in LINK_IN_BIO_DOMAINS:
+            if url not in seen["lib"]:
+                seen["lib"].add(url)
+                result.link_in_bio_urls.append(url)
+        elif host not in SOCIAL_DOMAINS and not _is_shortener(host):
+            if url not in seen["pd"]:
+                seen["pd"].add(url)
+                result.personal_domain_urls.append(url)
+
+    for raw_bare in BARE_DOMAIN_RE.findall(text):
+        url = _normalize_url("https://" + raw_bare)
+        if not url:
+            continue
+        host = _host(url)
+        if not host or host in seen_hosts:
+            continue
+        seen_hosts.add(host)
         if host in LINK_IN_BIO_DOMAINS:
             if url not in seen["lib"]:
                 seen["lib"].add(url)
@@ -100,8 +144,13 @@ def extract_bio_links(text: str) -> BioLinks:
     return result
 
 
+_ZERO_WIDTH = ("​", "‌", "‍", "﻿")
+
+
 def _normalize_url(raw: str) -> str | None:
     url = raw.strip().rstrip(".,;:!?)(\"'")
+    for ch in _ZERO_WIDTH:
+        url = url.replace(ch, "")
     if url.lower().startswith("www."):
         url = "https://" + url
     try:

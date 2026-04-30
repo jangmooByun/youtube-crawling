@@ -39,6 +39,10 @@ website_paths_priority:
   - "/contact-us"
   - "/press"
   - "/work-with-me"
+  - "/connect"
+  - "/booking"
+  - "/business"
+  - "/inquiries"
 
 website_paths_fallback:
   - "/about"
@@ -48,3 +52,11 @@ website_paths_fallback:
   - "/partnerships"
   - "/문의"
   - "/kontakt"
+  - "/inquiry"
+  - "/get-in-touch"
+  - "/support"
+  - "/email-us"
+  - "/info"
+  - "/연락처"
+  - "/contact-me"
+  - "/hello"
