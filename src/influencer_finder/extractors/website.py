@@ -132,17 +132,29 @@ class WebsiteCrawler:
         base_url: str,
         priority_paths: list[str],
         fallback_paths: list[str] | None = None,
+        max_seconds: Optional[float] = None,
     ) -> list[CrawlResult]:
         results: list[CrawlResult] = []
         base = _origin(base_url)
         if not base:
             return results
+        deadline = time.monotonic() + max_seconds if max_seconds else None
+
+        def over_budget() -> bool:
+            return deadline is not None and time.monotonic() >= deadline
+
         for path in priority_paths:
+            if over_budget():
+                logger.info("crawl budget exceeded for %s — skipping remaining priority paths", base)
+                return results
             candidate = urljoin(base + "/", path.lstrip("/"))
             results.append(self.crawl(candidate))
         have_email = any(r.emails for r in results)
         for path in fallback_paths or []:
             if have_email:
+                break
+            if over_budget():
+                logger.info("crawl budget exceeded for %s — skipping remaining fallback paths", base)
                 break
             candidate = urljoin(base + "/", path.lstrip("/"))
             result = self.crawl(candidate)

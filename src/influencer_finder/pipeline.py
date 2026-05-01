@@ -139,6 +139,7 @@ def crawl_external_links(
     crawl_cfg = cfg.get("crawl", {})
     priority_paths = cfg.get("website_paths_priority", cfg.get("website_paths_to_try", [""]))
     fallback_paths = cfg.get("website_paths_fallback", [])
+    per_source_budget = crawl_cfg.get("per_source_max_seconds", 120)
 
     stats = {"fetched": 0, "succeeded": 0, "emails_found": 0}
 
@@ -179,7 +180,9 @@ def crawl_external_links(
                 url = row["url"]
 
                 if _is_personal_domain(url):
-                    results = crawler.crawl_site_paths(url, priority_paths, fallback_paths)
+                    results = crawler.crawl_site_paths(
+                        url, priority_paths, fallback_paths, max_seconds=per_source_budget
+                    )
                 else:
                     results = [crawler.crawl(url)]
 
